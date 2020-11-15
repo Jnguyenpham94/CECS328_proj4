@@ -77,8 +77,16 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 			return;
 		}
 		// handle additional insert cases here.
+		if(n.mParent.mIsRed == false){
+			// case 2: P is black
+			return;
+		}
+		if(n.mParent.mIsRed == true && getUncle(n).mIsRed == true){
+			// case 3: P & U are red
 
-
+		}
+			// case 4: n is lr or rl grandchild of G
+			// case 5: n is ll or rr grandchild of G
 
 
 	}
