@@ -81,14 +81,19 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 			// case 2: P is black
 			return;
 		}
-		if(n.mParent.mIsRed == true && getUncle(n).mIsRed == true){
+		if(n.mParent.mIsRed && getUncle(n).mIsRed == true){
 			// case 3: P & U are red
-
+			return;
 		}
+		if(n.mLeft.mRight.mIsRed || n.mRight.mLeft.mIsRed == true){
 			// case 4: n is lr or rl grandchild of G
+			singleRotateLeft(n.mParent);
+		}
+		if(n.mLeft.mLeft.mIsRed || n.mRight.mRight.mIsRed == true){
 			// case 5: n is ll or rr grandchild of G
-
-
+			singleRotateRight(n.mParent);
+		}	
+	
 	}
 
 	// Returns true if the given key is in the tree.
@@ -96,12 +101,15 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 		// TODO: using at most three lines of code, finish this method.
 		// HINT: write the bstFind method first.
 		return false;
+		//return bstFind(key, currentNode);
 	}
 
 	// Prints a pre-order traversal of the tree's nodes, printing the key, value,
 	// and color of each node.
 	public void printStructure() {
 		// TODO: a pre-order traversal. Will need recursion.
+		System.out.print(10);
+		
 	}
 
 	// Retuns the Node containing the given key. Recursive.
@@ -109,7 +117,20 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 		// TODO: write this method. Given a key to find and a node to start at,
 		// proceed left/right from the current node until finding a node whose
 		// key is equal to the given key.
-		return null;
+		if(currentNode == null){
+			return currentNode;
+		}
+		if(currentNode.mValue == key){
+			return currentNode;
+		}
+		boolean leftContains = containsKey(key);
+		if(leftContains){
+			return currentNode;
+		}
+		else{
+			return bstFind(key, currentNode);
+		}
+		//return null;
 	}
 
 
@@ -119,7 +140,7 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	// Gets the grandparent of n.
 	private Node getGrandparent(Node n) {
 		// TODO: return the grandparent of n
-		return null;
+		return n.mParent.getGrandparent(n);
 	}
 
 	// Gets the uncle (parent's sibling) of n.
