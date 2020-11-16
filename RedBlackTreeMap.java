@@ -108,7 +108,7 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	// and color of each node.
 	public void printStructure() {
 		// TODO: a pre-order traversal. Will need recursion.
-		System.out.print(10);
+		System.out.print("work in progess");
 		
 	}
 
@@ -140,7 +140,7 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	// Gets the grandparent of n.
 	private Node getGrandparent(Node n) {
 		// TODO: return the grandparent of n
-		return n.mParent.getGrandparent(n);
+		return n.mParent;
 	}
 
 	// Gets the uncle (parent's sibling) of n.
