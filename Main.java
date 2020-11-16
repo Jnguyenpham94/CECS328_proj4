@@ -11,14 +11,22 @@ public class Main {
         try {
             RedBlackTreeMap<String, Integer> tree = new RedBlackTreeMap<>();
             String raw;
+            String nameKey;
             int value;
-
             read = new BufferedReader(new FileReader("players_homeruns.csv"));
             while ((raw = read.readLine()) != null) {
                 String[] parts = raw.split(",");
                 //for (String i: parts) { checking values in parts are there
                 //    System.out.println(i);
                 //}
+                for(int i=0; i < parts.length - 1;i += 2){
+                    nameKey = parts[i];
+                    value = Integer.parseInt(parts[i+1]);
+                    tree.add(nameKey, value);
+                    //System.out.println(name + " " + value); testing conversion of values
+                    tree.printStructure();
+                }
+                
             }
             read.close();
         } catch (FileNotFoundException e) {
