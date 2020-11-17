@@ -77,29 +77,19 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 			return;
 		}
 		// handle additional insert cases here.
-		case2(n);
-		case3(n);
-		case4(n);
-		case5(n);
-	}
-
-	// case 2: P is black
-	private void case2(Node n){
-		if (n.mParent.mIsRed == false) {	
+		else if (n.mParent.mIsRed == false) {	
+			// case 2: P is black
 			return;
 		}
-	}
-
-	// case 3: P & U are red
-	private void case3(Node n){
-		if (n.mParent.mIsRed == true && getUncle(n).mIsRed == true){
-			add(getGrandparent(n).mKey, getGrandparent(n).mValue);
+		else if (n.mParent.mIsRed == true && getUncle(n).mIsRed == true){
+			// case 3: P & U are red
+			n.mParent.mIsRed = false;
+			getUncle(n).mIsRed = false;
+			getGrandparent(n).mIsRed = true;
+			//checkBalance(getGrandparent(n));
 		}
-	}
-
-	// case 4: n is lr or rl grandchild of G
-	private void case4(Node n){
-		if (n == n.mParent.mRight && n.mParent == getGrandparent(n).mLeft){
+		// case 4: n is lr or rl grandchild of G
+		else if (n == n.mParent.mRight && n.mParent == getGrandparent(n).mLeft){
 			singleRotateLeft(n.mParent);
 			n = n.mLeft;
 		}
@@ -107,10 +97,7 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 			singleRotateRight(n.mParent);
 			n = n.mRight;
 		}
-	}
-
-	// case 5: n is ll or rr grandchild of G
-	private void case5(Node n){
+		// case 5: n is ll or rr grandchild of G
 		Node g = getGrandparent(n);
 		if (n == n.mParent.mLeft){
 			singleRotateRight(getGrandparent(n));
@@ -132,11 +119,14 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 
 	// Prints a pre-order traversal of the tree's nodes, printing the key, value,
 	// and color of each node.
-	public void printStructure(Node node) {
-		System.out.println(node.toString());
-		printStructure(node.mLeft);
-		printStructure(node.mRight);
+	public void printStructure() {
+		preOrderPrint(mRoot.mRight);
+	}
 
+	private void preOrderPrint(Node n){
+		System.out.println(n.toString());
+		preOrderPrint(n.mLeft);
+		preOrderPrint(n.mRight);
 	}
 
 	// Returns the Node containing the given key. Recursive.

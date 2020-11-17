@@ -25,7 +25,7 @@ public class Main {
                 tree.add(nameKey, value);
                 //System.out.println(nameKey + ": " + value); // testing conversion of values
             }
-             tree.printStructure(tree);
+            tree.printStructure();
             read.close();
         } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND");
