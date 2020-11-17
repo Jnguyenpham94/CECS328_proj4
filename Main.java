@@ -32,7 +32,7 @@ public class Main {
             read.close();
             boolean stop = false;
             Scanner input = new Scanner(System.in);
-            while(stop == false){
+            while(stop == false){// not working yet runtime error
                 System.out.println("Choose name to search: ");
                 String put = input.next();
                 tree.find(put);
