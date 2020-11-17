@@ -184,23 +184,25 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 
 	// Rotate the tree left at the given node.
 	private void singleRotateLeft(Node n) {
-		// TODO: do a single left rotation (AVL tree calls this a "rr" rotation)
+		//do a single left rotation (AVL tree calls this a "rr" rotation)
 		// at n.
-		Node l = n.mLeft, lr = l.mRight, p = n.mParent;
-		n.mRight = l;
-		lr.mParent = n;
-		l.mRight = n;
-		n.mParent = lr;
-
-		if (p == null) { // n is root
-			mRoot = l;
-		} else if (p.mLeft == n) {
-			p.mLeft = l;
-		} else {
-			p.mRight = l;
+		Node rt = n.mRight, p = getParent(n);
+		n.mRight = rt.mLeft;
+		rt.mLeft = n;
+		n.mParent = rt;
+		
+		if(n.mRight == null){
+			n.mRight.mParent = n;
 		}
-
-		l.mParent = p;
+		if(p != null){
+			if(n == p.mLeft){
+				p.mLeft = rt;
+			}
+			else if(n == p.mRight){
+				p.mRight = rt;
+			}
+		}
+		rt.mParent = p;
 
 	}
 
