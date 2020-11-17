@@ -120,10 +120,13 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	// Prints a pre-order traversal of the tree's nodes, printing the key, value,
 	// and color of each node.
 	public void printStructure() {
-		preOrderPrint(mRoot.mRight);
+		preOrderPrint(mRoot);
 	}
 
 	private void preOrderPrint(Node n){
+		if(n == null){
+			return;
+		}
 		System.out.println(n.toString());
 		preOrderPrint(n.mLeft);
 		preOrderPrint(n.mRight);

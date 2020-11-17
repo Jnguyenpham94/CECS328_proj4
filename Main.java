@@ -14,7 +14,9 @@ public class Main {
             String nameKey;
             int value;
             int i = 0;
-            read = new BufferedReader(new FileReader("players_homeruns.csv"));
+            read = new BufferedReader(new FileReader("first_five.csv"));
+            //read = new BufferedReader(new FileReader("first_ten.csv"));
+            //read = new BufferedReader(new FileReader("players_homeruns.csv"));
             while ((raw = read.readLine()) != null) {
                 String[] parts = raw.split(",");
                 // for (String i: parts) { //checking values in parts are there
