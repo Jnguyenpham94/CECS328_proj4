@@ -98,10 +98,9 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 
 	// Returns true if the given key is in the tree.
 	public boolean containsKey(TKey key) {
-		// TODO: using at most three lines of code, finish this method.
+		// using at most three lines of code, finish this method.
 		// HINT: write the bstFind method first.
 		return false;
-		// return bstFind(key, currentNode);
 	}
 
 	// Prints a pre-order traversal of the tree's nodes, printing the key, value,
@@ -113,24 +112,18 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 
 	}
 
-	// Retuns the Node containing the given key. Recursive.
+	// Returns the Node containing the given key. Recursive.
 	private Node bstFind(TKey key, Node currentNode) {
-		// TODO: write this method. Given a key to find and a node to start at,
+		// write this method. Given a key to find and a node to start at,
 		// proceed left/right from the current node until finding a node whose
 		// key is equal to the given key.
-		if (currentNode == null) {
+		if (currentNode == null || currentNode.mKey == key) {
 			return currentNode;
 		}
-		if (currentNode.mValue == key) {
-			return currentNode;
+		if (currentNode.mKey != key) {
+			return bstFind(key, currentNode.mRight);
 		}
-		boolean leftContains = containsKey(key);
-		if (leftContains) {
-			return currentNode;
-		} else {
-			return bstFind(key, currentNode);
-		}
-		// return null;
+		return bstFind(key, currentNode.mLeft);
 	}
 
 	//////////////// These functions are needed for insertion cases.
@@ -141,26 +134,21 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	}
 
 	// helps get the uncle of n
-	private Node getParent(Node n) {
-		return n == null ? null : n.mParent;
-	}
-
-	// helps get the uncle of n
 	private Node getSibling(Node n) {
 		if(n.mParent == null){
 			return null;
 		}
-		if(n == getParent(n).mLeft){
-			return getParent(n).mRight;
+		if(n == n.mParent.mLeft){
+			return n.mParent.mRight;
 		}
 		else{
-			return getParent(n).mLeft;
+			return n.mParent.mLeft;
 		}
 	}
 
 	// Gets the uncle (parent's sibling) of n.
 	private Node getUncle(Node n) {
-		return getSibling(getParent(n));
+		return getSibling(n.mParent);
 	}
 
 	// Rotate the tree right at the given node.
@@ -186,11 +174,11 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 	private void singleRotateLeft(Node n) {
 		//do a single left rotation (AVL tree calls this a "rr" rotation)
 		// at n.
-		Node rt = n.mRight, p = getParent(n);
+		Node rt = n.mRight, p = n.mParent;
 		n.mRight = rt.mLeft;
 		rt.mLeft = n;
 		n.mParent = rt;
-		
+
 		if(n.mRight == null){
 			n.mRight.mParent = n;
 		}
