@@ -33,6 +33,8 @@ public class Main {
         } catch (IOException f) {
             System.out.println("I/O ERROR");
             f.printStackTrace();
+        } catch(NullPointerException np){
+            System.out.println("Reached leaf NILs");
         }
     }
 }
