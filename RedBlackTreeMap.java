@@ -77,30 +77,57 @@ public class RedBlackTreeMap<TKey extends Comparable<TKey>, TValue> {
 			return;
 		}
 		// handle additional insert cases here.
-		if (n.mParent.mIsRed == false) {
-			// case 2: P is black
+		case2(n);
+		case3(n);
+		case4(n);
+		case5(n);
+	}
+
+	// case 2: P is black
+	private void case2(Node n){
+		if (n.mParent.mIsRed == false) {	
 			return;
 		}
-		if (n.mParent.mIsRed == true && getUncle(n).mIsRed == true) {
-			// case 3: P & U are red
-			add(n.mKey, n.mValue);
-		}
-		if (n.mLeft.mRight.mIsRed || n.mRight.mLeft.mIsRed == true) {
-			// case 4: n is lr or rl grandchild of G
-			singleRotateLeft(n.mParent);
-		}
-		if (n.mLeft.mLeft.mIsRed || n.mRight.mRight.mIsRed == true) {
-			// case 5: n is ll or rr grandchild of G
-			singleRotateRight(n.mParent);
-		}
+	}
 
+	// case 3: P & U are red
+	private void case3(Node n){
+		if (n.mParent.mIsRed == true && getUncle(n).mIsRed == true){
+			add(getGrandparent(n).mKey, getGrandparent(n).mValue);
+		}
+	}
+
+	// case 4: n is lr or rl grandchild of G
+	private void case4(Node n){
+		if (n == n.mParent.mRight && n.mParent == getGrandparent(n).mLeft){
+			singleRotateLeft(n.mParent);
+			n = n.mLeft;
+		}
+		else if(n == n.mParent.mLeft && n.mParent == getGrandparent(n).mRight){
+			singleRotateRight(n.mParent);
+			n = n.mRight;
+		}
+	}
+
+	// case 5: n is ll or rr grandchild of G
+	private void case5(Node n){
+		Node g = getGrandparent(n);
+		if (n == n.mParent.mLeft){
+			singleRotateRight(getGrandparent(n));
+		}
+		else{
+			singleRotateLeft(getGrandparent(n));
+		}
+		n.mParent.mIsRed = false;
+		g.mIsRed = true;
 	}
 
 	// Returns true if the given key is in the tree.
 	public boolean containsKey(TKey key) {
 		// using at most three lines of code, finish this method.
 		// HINT: write the bstFind method first.
-		return false;
+		boolean found = bstFind(key, mRoot) != null ? true : false; 
+		return found;
 	}
 
 	// Prints a pre-order traversal of the tree's nodes, printing the key, value,
