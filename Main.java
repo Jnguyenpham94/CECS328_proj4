@@ -15,8 +15,8 @@ public class Main {
             String nameKey;
             int value;
             int i = 0;
-            //read = new BufferedReader(new FileReader("first_five.csv"));
-            read = new BufferedReader(new FileReader("first_ten.csv"));
+            read = new BufferedReader(new FileReader("first_five.csv"));
+            //read = new BufferedReader(new FileReader("first_ten.csv"));
             //read = new BufferedReader(new FileReader("players_homeruns.csv"));
             while ((raw = read.readLine()) != null) {
                 String[] parts = raw.split(",");
@@ -33,7 +33,7 @@ public class Main {
             boolean stop = false;
             Scanner input = new Scanner(System.in);
             while(stop == false){// not working yet runtime error
-                System.out.println("Choose name to search: ");
+                System.out.print("Choose name to search: ");
                 String put = input.next();
                 tree.find(put);
                 //System.out.println(put.toString());
